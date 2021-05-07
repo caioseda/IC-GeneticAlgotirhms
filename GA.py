@@ -14,12 +14,8 @@ def plot_best_fit():
     n_nines = []
     for s in scores:
         precisao = str(s).split('.')[1]
-        print("precisao",precisao)
         noves = re.search(r'(^9*)', precisao)
-        print("noves",noves)
         n_nines.append(len(noves[0]))
-        print("\n")
-    print("\n\nn_nines",n_nines)
     
     fig = plt.figure()
     ax = fig.add_subplot(111)
@@ -34,7 +30,6 @@ if __name__ == "__main__":
     populacao.init()
 
     selecao = TournamentSelection()
-    # selecao = ExponentialRankingSelection(0.9999)
     crossover = UniformCrossover(pc=0.65, pe=0.65)
     mutacao = FlipBitMutation(pm=0.008)
 
@@ -50,12 +45,3 @@ if __name__ == "__main__":
     engine.run(ng=40)
 
     plot_best_fit()
-
-    # @engine.analysis_register
-    # class ConsoleOutput(OnTheFlyAnalysis):
-    #     master_only = True
-    #     interval = 1
-    #     def register_step(self, g, population, engine):
-    #         best_indv = population.best_indv(engine.fitness)
-    #         msg = 'Generation: {}, best fitness: {:.3f}'.format(g, engine.fmax)
-    #         engine.logger.info(msg)
